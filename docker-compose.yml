@@ -1,0 +1,39 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: shopping-agent-postgres
+
+    environment:
+      POSTGRES_DB: shopping_agent_db
+      POSTGRES_USER: shopping_agent
+      POSTGRES_PASSWORD: shopping_agent_password
+      TZ: Asia/Phnom_Penh
+
+    ports:
+      - "5422:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+      # Automatically execute SQL when DB is initialized
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U shopping_agent -d shopping_agent_db"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    restart: unless-stopped
+
+    shm_size: 128mb
+
+
+volumes:
+  postgres_data:
+    name: shopping-agent-postgres-data

@@ -1,16 +1,68 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from agent import run_agent
+from database.schemas import UserRole
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def main():
+
+    print("=" * 60)
+    print("SIMPLE SHOPPING AGENT")
+    print("=" * 60)
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    role_input = input(
+        "\nChoose role (customer/admin): "
+    ).strip().lower()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    if role_input == "admin":
+        role = UserRole.ADMIN
+    else:
+        role = UserRole.CUSTOMER
+
+    print(f"\nLogged in as: {role.value}")
+
+    print("\nYou can now chat with the Shopping Agent.")
+    print("Type 'exit' or 'quit' to stop the program.")
+
+    # -----------------------------------------------------
+    # Conversation Loop
+    # -----------------------------------------------------
+
+    while True:
+
+        print("\n" + "-" * 60)
+
+        user_request = input(
+            f"{role.value}> "
+        ).strip()
+
+        # Empty input
+        if not user_request:
+            continue
+
+        # Exit application
+        if user_request.lower() in ["exit", "quit"]:
+            print("\nShopping Agent stopped.")
+            break
+
+        # Run agent
+        try:
+
+            run_agent(
+                user_request=user_request,
+                user_role=role,
+            )
+
+        except KeyboardInterrupt:
+
+            print("\n\nShopping Agent stopped.")
+            break
+
+        except Exception as error:
+
+            print(
+                f"\n[ERROR] Something went wrong: {error}"
+            )
+
+
+if __name__ == "__main__":
+    main()

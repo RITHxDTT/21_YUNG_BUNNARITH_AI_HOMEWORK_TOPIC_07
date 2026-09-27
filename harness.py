@@ -15,9 +15,8 @@ from tools import (
 )
 
 
-# =========================================================
+
 # Tool Risk
-# =========================================================
 
 class ToolRisk(str, Enum):
     READ_ONLY = "READ_ONLY"
@@ -25,9 +24,9 @@ class ToolRisk(str, Enum):
     DESTRUCTIVE = "DESTRUCTIVE"
 
 
-# =========================================================
+
 # Tool Registry
-# =========================================================
+
 
 TOOL_REGISTRY = {
 
@@ -62,9 +61,9 @@ TOOL_REGISTRY = {
 }
 
 
-# =========================================================
+
 # Harness
-# =========================================================
+
 
 class AgentHarness:
 
@@ -78,9 +77,8 @@ class AgentHarness:
         self.tool_call_count = 0
 
 
-    # -----------------------------------------------------
+
     # Get Tool Risk
-    # -----------------------------------------------------
 
     def get_risk(self, tool_name: str):
 
@@ -92,9 +90,8 @@ class AgentHarness:
         return tool_config["risk"]
 
 
-    # -----------------------------------------------------
-    # Does Tool Need Approval?
-    # -----------------------------------------------------
+    # human tool need Approval?
+
 
     def needs_approval(self, tool_name: str):
 
@@ -106,9 +103,9 @@ class AgentHarness:
         ]
 
 
-    # -----------------------------------------------------
+
     # Validate Tool
-    # -----------------------------------------------------
+
 
     def validate(self, tool_name: str, arguments: dict):
 
@@ -160,9 +157,9 @@ class AgentHarness:
         }
 
 
-    # -----------------------------------------------------
+
     # Execute Tool
-    # -----------------------------------------------------
+
 
     def execute(self, tool_name: str, arguments: dict):
 

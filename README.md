@@ -1,4 +1,5 @@
 
+Shopping Agent
 
 agent uses **Ollama (`llama3.2:3b`)** as the local LLM and uses **PostgreSQL** for storing product data.
 
